@@ -14,6 +14,7 @@ RouterLayer.router = null;
  */
 if (_.has(Package, 'iron:router')) {
   RouterLayer.router = 'iron-router';
+  RouterLayer.ironRouter = Package['iron:router'].Router;
 }
 
 /**
@@ -24,6 +25,7 @@ if (_.has(Package, 'kadira:flow-router')) {
   if (!_.has(Package, 'kadira:blaze-layout')) {
     throw new Meteor.Error('router-layer', 'If you use kadira:flow-router you must add kadira:blaze-layout');
   }
+  RouterLayer.flowRouter = FlowRouter;
 }
 
 /*
@@ -35,18 +37,20 @@ if (!RouterLayer.router) {
 
 /**
  * Creates a new route
- * @param {String} url              The path of the route
+ * @param {String} url                        The path of the route
  * @param {Object} [options]
- * @param {String} options.template The template for this route
- * @param {String} options.name     The name of the route
- * @param {String} options.layout   Optional. The layout for this route
+ * @param {String} options.template           The template for this route
+ * @param {String} options.name               The name of the route
+ * @param {String} options.layout             Optional. The layout for this route
+ * @param {Boolean} options.reactiveTemplates Optional. Templates are reactive templates
  */
 RouterLayer.route = function(url, options) {
   check(url, String);
   check(options, {
     template: String,
     name: Match.Optional(String),
-    layout: Match.Optional(String)
+    layout: Match.Optional(String),
+    reactiveTemplates: Match.Optional(Boolean)
   });
 
   this._route(url, options);

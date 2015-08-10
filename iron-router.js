@@ -1,18 +1,22 @@
 if (RouterLayer.router == 'iron-router') {
   RouterLayer._route = function(url, options) {
-    Router.route(url, {
-      template: options.template,
-      layoutTemplate: options.layout,
-      name: options.name
-    });
+    this.ironRouter.route(url, function() {
+      if (options.reactiveTemplates) {
+        options.layout && this.layout(ReactiveTemplates.get(options.layout));
+        this.render(ReactiveTemplates.get(options.template));
+      } else {
+        options.layout && this.layout(options.layout);
+        this.render(options.template);
+      }
+    }, { name: options.name });
   };
 
   RouterLayer._pathFor = function(routeName, params) {
-    return Router.path(routeName, params);
+    return this.ironRouter.path(routeName, params);
   }
 
   RouterLayer._isActiveRoute = function(routeName, params) {
-    var currentRoute = Router.current();
+    var currentRoute = this.ironRouter.current();
     var isActive = true;
 
     if (currentRoute.route.getName() !== routeName) {
@@ -33,7 +37,7 @@ if (RouterLayer.router == 'iron-router') {
   }
 
   RouterLayer._isActiveRoutePartial = function(routeName) {
-    var currentRouteName = Router.current().route.getName().split('.');
+    var currentRouteName = this.ironRouter.current().route.getName().split('.');
     var parts = routeName.split('.');
 
     for(var i = 0; i < parts.length; i++) {
@@ -46,6 +50,6 @@ if (RouterLayer.router == 'iron-router') {
   }
 
   RouterLayer._go = function(routeName, params) {
-    Router.go(routeName, params);
+    this.ironRouter.go(routeName, params);
   }
 }

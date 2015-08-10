@@ -1,7 +1,7 @@
 Package.describe({
   name: 'nicolaslopezj:router-layer',
   summary: 'A layer for Meteor Routers',
-  version: '0.0.1',
+  version: '0.0.2',
   git: 'https://github.com/nicolaslopezj/meteor-router-layer'
 });
 
@@ -10,7 +10,7 @@ Package.onUse(function(api) {
 
   api.use(['meteor-platform', 'underscore']);
 
-  api.use(['iron:router@1.0.9', 'kadira:flow-router@2.1.1', 'kadira:blaze-layout@2.0.0'], { weak: true });
+  api.use(['iron:router@1.0.9', 'kadira:flow-router@2.1.1', 'kadira:blaze-layout@2.0.0', 'nicolaslopezj:reactive-templates@1.2.1'], { weak: true });
 
   api.addFiles([
     'layer.js',
