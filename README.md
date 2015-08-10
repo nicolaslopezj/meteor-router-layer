@@ -1,5 +1,9 @@
 # Meteor Router Layer
 
+```
+nicolaslopezj:router-layer
+```
+
 This project helps package authors to support multiple routers.
 
 The layer supports:
