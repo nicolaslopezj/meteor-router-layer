@@ -21,6 +21,16 @@ if (_.has(Package, 'iron:router')) {
  */
 if (_.has(Package, 'kadira:flow-router')) {
   RouterLayer.router = 'flow-router';
+  if (!_.has(Package, 'kadira:blaze-layout')) {
+    throw new Meteor.Error('router-layer', 'If you use kadira:flow-router you must add kadira:blaze-layout');
+  }
+}
+
+/*
+ * Throw a error if there is no route package
+ */
+if (!RouterLayer.router) {
+  throw new Meteor.Error('router-layer', 'You must add iron:router or kadira:flow-router');
 }
 
 /**
@@ -28,22 +38,18 @@ if (_.has(Package, 'kadira:flow-router')) {
  * @param {String} url              The path of the route
  * @param {Object} [options]
  * @param {String} options.template The template for this route
+ * @param {String} options.name     The name of the route
  * @param {String} options.layout   Optional. The layout for this route
- * @param {String} options.name     Optional. The name of the route
  */
 RouterLayer.route = function(url, options) {
-  if (!RouterLayer.router) {
-    throw new Meteor.Error('router-layer', 'No router is configured');
-  }
-
   check(url, String);
   check(options, {
     template: String,
-    layout: Match.Optional(String),
-    name: Match.Optional(String)
+    name: Match.Optional(String),
+    layout: Match.Optional(String)
   });
 
-  return this._route(url, options);
+  this._route(url, options);
 };
 
 /**
@@ -53,10 +59,6 @@ RouterLayer.route = function(url, options) {
  * @return {String}           The requested url
  */
 RouterLayer.pathFor = function(routeName, params) {
-  if (!RouterLayer.router) {
-    throw new Meteor.Error('router-layer', 'No router is configured');
-  }
-
   check(routeName, String);
   check(params, Match.Optional(Object));
 
@@ -70,10 +72,6 @@ RouterLayer.pathFor = function(routeName, params) {
  * @return {Boolean}          True if the route is active
  */
 RouterLayer.isActiveRoute = function(routeName, params) {
-  if (!RouterLayer.router) {
-    throw new Meteor.Error('router-layer', 'No router is configured');
-  }
-
   check(routeName, String);
   check(params, Match.Optional(Object));
 
@@ -86,11 +84,19 @@ RouterLayer.isActiveRoute = function(routeName, params) {
  * @return {Boolean}          True if the route is active
  */
 RouterLayer.isActiveRoutePartial = function(routeName) {
-  if (!RouterLayer.router) {
-    throw new Meteor.Error('router-layer', 'No router is configured');
-  }
-
   check(routeName, String);
 
   return this._isActiveRoutePartial(routeName);
+}
+
+/**
+ * Redirects the user to the specified route
+ * @param  {String} routeName The name of the route
+ * @param  {Object} params    Optional. The parameters of the route
+ */
+RouterLayer.go = function(routeName, params) {
+  check(routeName, String);
+  check(params, Match.Optional(Object));
+
+  this._go(routeName, params);
 }

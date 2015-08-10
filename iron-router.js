@@ -44,4 +44,8 @@ if (RouterLayer.router == 'iron-router') {
 
     return true;
   }
+
+  RouterLayer._go = function(routeName, params) {
+    Router.go(routeName, params);
+  }
 }

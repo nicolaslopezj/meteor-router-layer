@@ -55,4 +55,8 @@ if (RouterLayer.router == 'flow-router') {
 
     return true;
   }
+
+  RouterLayer._go = function(routeName, params) {
+    FlowRouter.go(routeName, params);
+  }
 }

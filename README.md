@@ -67,3 +67,13 @@ Check if the current route name, divided by dots, starts with the specified name
 **routeName**: `String`, The name of the route
 
 **Returns**: `Boolean`, True if the route is active
+
+#### RouterLayer.go(routeName, params)
+
+Redirects the user to the specified route
+
+**Parameters**
+
+**routeName**: `String`, The name of the route
+
+**params**: `Object`, Optional. The parameters of the route
