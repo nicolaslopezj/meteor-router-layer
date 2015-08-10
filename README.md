@@ -19,7 +19,7 @@ Creates a new route
 
 **url**: `String`, The path of the route
 
-**options**: `Object`, Creates a new route
+**options**
 
 **options.template**: `String`, The template for this route
 
@@ -55,7 +55,7 @@ Check if the current route has the specified name and params (if set)
 **Returns**: `Boolean`, True if the route is active
 
 
-#### RouterLayer.isActiveRoutePartial(routeName) 
+#### RouterLayer.isActiveRoutePartial(routeName)
 
 Check if the current route name, divided by dots, starts with the specified name
 
