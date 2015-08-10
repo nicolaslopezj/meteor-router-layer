@@ -11,7 +11,7 @@ The layer supports:
 
 ## Api
 
-#### RouterLayer.route(url, options, options.template, options.layout, options.name)
+#### RouterLayer.route(url, options)
 
 Creates a new route
 
