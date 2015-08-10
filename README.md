@@ -81,3 +81,11 @@ Redirects the user to the specified route
 **routeName**: `String`, The name of the route
 
 **params**: `Object`, Optional. The parameters of the route
+
+#### RouterLayer.getParam(key)
+
+Returns a parameter of the url
+
+**Parameters**
+
+**paramName**: `String`, The name of the parameter

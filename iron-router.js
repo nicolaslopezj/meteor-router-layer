@@ -52,4 +52,8 @@ if (RouterLayer.router == 'iron-router') {
   RouterLayer._go = function(routeName, params) {
     this.ironRouter.go(routeName, params);
   }
+
+  RouterLayer._getParam = function(paramName) {
+    return this.ironRouter.current().params[paramName];
+  }
 }

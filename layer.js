@@ -104,3 +104,13 @@ RouterLayer.go = function(routeName, params) {
 
   this._go(routeName, params);
 }
+
+/**
+ * Returns a parameter of the url
+ * @param  {String} paramName The name of the parameter
+ */
+RouterLayer.getParam = function(paramName) {
+  check(key, String);
+
+  this._getParam(paramName);
+}
