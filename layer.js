@@ -64,7 +64,7 @@ RouterLayer.route = function(url, options) {
  */
 RouterLayer.pathFor = function(routeName, params) {
   check(routeName, String);
-  check(params, Match.Optional(Object));
+  //check(params, Match.Optional(Object)); Gives error when passing collection documents
 
   return this._pathFor(routeName, params);
 }
@@ -110,7 +110,7 @@ RouterLayer.go = function(routeName, params) {
  * @param  {String} paramName The name of the parameter
  */
 RouterLayer.getParam = function(paramName) {
-  check(key, String);
+  check(paramName, String);
 
   this._getParam(paramName);
 }
