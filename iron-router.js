@@ -54,6 +54,7 @@ if (RouterLayer.router == 'iron-router') {
   }
 
   RouterLayer._getParam = function(paramName) {
+    console.log(this.ironRouter.current().params[paramName]);
     return this.ironRouter.current().params[paramName];
   }
 }

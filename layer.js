@@ -112,5 +112,5 @@ RouterLayer.go = function(routeName, params) {
 RouterLayer.getParam = function(paramName) {
   check(paramName, String);
 
-  this._getParam(paramName);
+  return this._getParam(paramName);
 }
