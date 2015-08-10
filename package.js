@@ -10,7 +10,7 @@ Package.onUse(function(api) {
 
   api.use(['meteor-platform', 'underscore']);
 
-  api.use(['iron:router', 'kadira:flow-router'], { weak: true });
+  api.use(['iron:router', 'kadira:flow-router', 'kadira:blaze-layout'], { weak: true });
 
   api.addFiles([
     'layer.js',
