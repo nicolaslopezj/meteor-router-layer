@@ -16,6 +16,10 @@ Requires: ```iron:router```
 
 Requires: ```kadira:flow-router``` ```kadira:blaze-layout```
 
+For flow router it allows you to use ```{{# Layout }}``` like
+[iron:layout](https://github.com/iron-meteor/iron-layout)
+without using it as a dependency (only for plain ```{{> yield }}```).
+
 ## Api
 
 #### RouterLayer.route(url, options)
