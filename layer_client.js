@@ -9,3 +9,29 @@ Template.registerHelper('RouterLayerIsActiveRoute', function(routeName, options)
 Template.registerHelper('RouterLayerIsActiveRoutePartial', function(routeName) {
   return RouterLayer.isActiveRoutePartial(routeName) ? 'active': null;
 });
+
+if (RouterLayer.router == 'flow-router') {
+  Template.registerHelper('yield', function() {
+    if (this.templateContent) {
+      return this.templateContent;
+    } else {
+      return this.content && Template[this.content()];
+    }
+  });
+
+  Template.registerHelper('Layout', new Template('flowRouter_newTemplate', function () {
+    var data = { layout: this._templateInstance.data.template, content: this.templateContentBlock }
+    return Blaze.With(data, function() {
+      return Template.flowRouter_layoutHelper
+    });
+  }));
+
+  Template.flowRouter_layoutHelper.helpers({
+    data: function() {
+      return { templateContent: this.content };
+    },
+    template: function() {
+      return this.layout;
+    }
+  })
+}

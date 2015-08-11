@@ -25,7 +25,8 @@ if (_.has(Package, 'kadira:flow-router')) {
   if (!_.has(Package, 'kadira:blaze-layout')) {
     throw new Meteor.Error('router-layer', 'If you use kadira:flow-router you must add kadira:blaze-layout');
   }
-  RouterLayer.flowRouter = FlowRouter;
+  RouterLayer.flowRouter = Package['kadira:flow-router'].FlowRouter;
+  RouterLayer.blazeLayout = Package['kadira:blaze-layout'].BlazeLayout;
 }
 
 /*
@@ -64,7 +65,7 @@ RouterLayer.route = function(url, options) {
  */
 RouterLayer.pathFor = function(routeName, params) {
   check(routeName, String);
-  //check(params, Match.Optional(Object)); Gives error when passing collection documents
+  // check(params, Match.Optional(Object)); Gives error when passing collection documents
 
   return this._pathFor(routeName, params);
 }
@@ -100,7 +101,7 @@ RouterLayer.isActiveRoutePartial = function(routeName) {
  */
 RouterLayer.go = function(routeName, params) {
   check(routeName, String);
-  check(params, Match.Optional(Object));
+  // check(params, Match.Optional(Object)); Gives error when passing collection documents
 
   this._go(routeName, params);
 }
@@ -113,4 +114,14 @@ RouterLayer.getParam = function(paramName) {
   check(paramName, String);
 
   return this._getParam(paramName);
+}
+
+/**
+ * Returns a parameter of the url query
+ * @param  {String} queryStringKey The name of the parameter
+ */
+RouterLayer.getQueryParam = function(queryStringKey) {
+  check(queryStringKey, String);
+
+  return this._getQueryParam(queryStringKey);
 }

@@ -1,7 +1,7 @@
 Package.describe({
   name: 'nicolaslopezj:router-layer',
   summary: 'A layer for Meteor Routers',
-  version: '0.0.5',
+  version: '0.0.6',
   git: 'https://github.com/nicolaslopezj/meteor-router-layer'
 });
 
@@ -19,6 +19,7 @@ Package.onUse(function(api) {
   ]);
 
   api.addFiles([
+    'layer.html',
     'layer_client.js'
   ], 'client');
 

@@ -82,10 +82,18 @@ Redirects the user to the specified route
 
 **params**: `Object`, Optional. The parameters of the route
 
-#### RouterLayer.getParam(key)
+#### RouterLayer.getParam(paramName)
 
 Returns a parameter of the url
 
 **Parameters**
 
 **paramName**: `String`, The name of the parameter
+
+#### RouterLayer.getQueryParam(queryStringKey)
+
+Returns a parameter of the url
+
+**Parameters**
+
+**queryStringKey**: `String`, The name of the parameter
