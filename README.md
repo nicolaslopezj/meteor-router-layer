@@ -101,3 +101,7 @@ Returns a parameter of the url
 **Parameters**
 
 **queryStringKey**: `String`, The name of the parameter
+
+#### RouterLayer.getPath()
+
+Returns the path of the current route

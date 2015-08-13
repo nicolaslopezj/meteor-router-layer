@@ -73,4 +73,8 @@ if (RouterLayer.router == 'flow-router') {
   RouterLayer._getQueryParam = function(queryStringKey) {
     return this.flowRouter.getQueryParam(queryStringKey);
   }
+
+  RouterLayer._getPath = function() {
+    return this.flowRouter.current().path;
+  }
 }

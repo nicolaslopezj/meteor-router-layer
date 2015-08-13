@@ -60,4 +60,8 @@ if (RouterLayer.router == 'iron-router') {
   RouterLayer._getQueryParam = function(queryStringKey) {
     return this.ironRouter.current().params.query[queryStringKey];
   }
+
+  RouterLayer._getPath = function() {
+    return this.ironRouter.current().route.path()
+  }
 }

@@ -125,3 +125,11 @@ RouterLayer.getQueryParam = function(queryStringKey) {
 
   return this._getQueryParam(queryStringKey);
 }
+
+/**
+ * Returns the path of the current route
+ * @return {String} The path of the current route
+ */
+RouterLayer.getPath = function() {
+  return this._getPath();
+}
