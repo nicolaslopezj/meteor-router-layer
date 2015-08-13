@@ -19,7 +19,7 @@ jquery@1.11.3_2
 json@1.0.3
 launch-screen@1.0.2
 livedata@1.0.13
-local-test:nicolaslopezj:router-layer@0.0.8
+local-test:nicolaslopezj:router-layer@0.0.10
 logging@1.0.7
 meteor@1.1.6
 meteor-platform@1.2.2
@@ -27,7 +27,7 @@ minifiers@1.1.5
 minimongo@1.0.8
 mobile-status-bar@1.0.3
 mongo@1.1.0
-nicolaslopezj:router-layer@0.0.8
+nicolaslopezj:router-layer@0.0.10
 observe-sequence@1.0.6
 ordered-dict@1.0.3
 random@1.0.3

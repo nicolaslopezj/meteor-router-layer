@@ -62,6 +62,6 @@ if (RouterLayer.router == 'iron-router') {
   }
 
   RouterLayer._getPath = function() {
-    return this.ironRouter.current().route.path()
+    return this.ironRouter.current().location.get().path
   }
 }
