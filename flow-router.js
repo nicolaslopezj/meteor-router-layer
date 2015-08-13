@@ -75,6 +75,7 @@ if (RouterLayer.router == 'flow-router') {
   }
 
   RouterLayer._getPath = function() {
+    this.flowRouter.watchPathChange();
     return this.flowRouter.current().path;
   }
 }
