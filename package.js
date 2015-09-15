@@ -10,12 +10,14 @@ Package.onUse(function(api) {
 
   api.use(['meteor-platform', 'underscore']);
 
+
   api.use(['iron:router@1.0.9', 'kadira:flow-router@2.1.1', 'kadira:blaze-layout@2.0.0', 'nicolaslopezj:reactive-templates@1.2.1'], { weak: true });
 
   api.addFiles([
     'layer.js',
     'iron-router.js',
-    'flow-router.js'
+    'flow-router.js',
+    '_init.js'
   ]);
 
   api.addFiles([

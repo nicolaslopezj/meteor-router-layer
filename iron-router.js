@@ -1,6 +1,6 @@
-if (RouterLayer.router == 'iron-router') {
-  RouterLayer._route = function(url, options) {
-    this.ironRouter.route(url, function() {
+IronRouterLayer = function() {
+  this._route = function(url, options) {
+    Router.route(url, function() {
       if (options.reactiveTemplates) {
         options.layout && this.layout(ReactiveTemplates.get(options.layout));
         this.render(ReactiveTemplates.get(options.template));
@@ -11,12 +11,12 @@ if (RouterLayer.router == 'iron-router') {
     }, { name: options.name });
   };
 
-  RouterLayer._pathFor = function(routeName, params) {
-    return this.ironRouter.path(routeName, params);
+  this._pathFor = function(routeName, params) {
+    return Router.path(routeName, params);
   }
 
-  RouterLayer._isActiveRoute = function(routeName, params) {
-    var currentRoute = this.ironRouter.current();
+  this._isActiveRoute = function(routeName, params) {
+    var currentRoute = Router.current();
     var isActive = true;
 
     if (currentRoute.route.getName() !== routeName) {
@@ -36,8 +36,8 @@ if (RouterLayer.router == 'iron-router') {
     return isActive;
   }
 
-  RouterLayer._isActiveRoutePartial = function(routeName) {
-    var currentRouteName = this.ironRouter.current().route.getName().split('.');
+  this._isActiveRoutePartial = function(routeName) {
+    var currentRouteName = Router.current().route.getName().split('.');
     var parts = routeName.split('.');
 
     for(var i = 0; i < parts.length; i++) {
@@ -49,19 +49,23 @@ if (RouterLayer.router == 'iron-router') {
     return true;
   }
 
-  RouterLayer._go = function(routeName, params) {
-    this.ironRouter.go(routeName, params);
+  this._go = function(routeName, params) {
+    Router.go(routeName, params);
   }
 
-  RouterLayer._getParam = function(paramName) {
-    return this.ironRouter.current().params[paramName];
+  this._getParam = function(paramName) {
+    return Router.current().params[paramName];
   }
 
-  RouterLayer._getQueryParam = function(queryStringKey) {
-    return this.ironRouter.current().params.query[queryStringKey];
+  this._getQueryParam = function(queryStringKey) {
+    return Router.current().params.query[queryStringKey];
   }
 
-  RouterLayer._getPath = function() {
-    return this.ironRouter.current().location.get().path
+  this._getPath = function() {
+    return Router.current().location.get().path;
   }
-}
+
+  this._getRoutes = function() {
+    return Router.routes;
+  }
+};
