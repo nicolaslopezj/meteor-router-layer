@@ -1,38 +1,37 @@
-FlowRouterLayer = function() {
-
-  this._route = function(url, options) {
+if (RouterLayer.router == 'flow-router') {
+  RouterLayer._route = function(url, options) {
     var self = this;
 
-    FlowRouter.route(url, {
+    self.flowRouter.route(url, {
       name: options.name,
       action: function(params) {
         if (options.reactiveTemplates) {
           Tracker.autorun(function() {
             if (options.layout) {
-              BlazeLayout.render(ReactiveTemplates.get(options.layout), { content: ReactiveTemplates.get(options.template) });
+              self.blazeLayout.render(ReactiveTemplates.get(options.layout), { content: ReactiveTemplates.get(options.template) });
             } else {
-              BlazeLayout.render(ReactiveTemplates.get(options.template));
+              self.blazeLayout.render(ReactiveTemplates.get(options.template));
             }
           });
         } else {
           if (options.layout) {
-            BlazeLayout.render(options.layout, { content: options.template });
+            self.blazeLayout.render(options.layout, { content: options.template });
           } else {
-            BlazeLayout.render(options.template);
+            self.blazeLayout.render(options.template);
           }
         }
       }
     });
   };
 
-  this._pathFor = function(routeName, params) {
-    return FlowRouter.path(routeName, params);
-  };
+  RouterLayer._pathFor = function(routeName, params) {
+    return this.flowRouter.path(routeName, params);
+  }
 
-  this._isActiveRoute = function(routeName, params) {
+  RouterLayer._isActiveRoute = function(routeName, params) {
     var isActive = true;
 
-    if (FlowRouter.getRouteName() !== routeName) {
+    if (this.flowRouter.getRouteName() !== routeName) {
       isActive = false;
     }
 
@@ -42,16 +41,16 @@ FlowRouterLayer = function() {
 
     var self = this;
     _.each(_.keys(params), function(key) {
-      if (params[key] !== FlowRouter.getParam(key)) {
+      if (params[key] !== self.flowRouter.getParam(key)) {
         isActive = false;
       }
     });
 
     return isActive;
-  };
+  }
 
-  this._isActiveRoutePartial = function(routeName) {
-    var currentRouteName = FlowRouter.getRouteName().split('.');
+  RouterLayer._isActiveRoutePartial = function(routeName) {
+    var currentRouteName = this.flowRouter.getRouteName().split('.');
     var parts = routeName.split('.');
 
     for(var i = 0; i < parts.length; i++) {
@@ -61,34 +60,22 @@ FlowRouterLayer = function() {
     }
 
     return true;
-  };
-
-  this._go = function(routeName, params) {
-    FlowRouter.go(routeName, params);
-  };
-
-  this._getParam = function(paramName) {
-    return FlowRouter.getParam(paramName);
-  };
-
-  this._getQueryParam = function(queryStringKey) {
-    return FlowRouter.getQueryParam(queryStringKey);
   }
 
-  this._getQueryParam = function(queryStringKey) {
-    return FlowRouter.getQueryParam(queryStringKey);
-  };
+  RouterLayer._go = function(routeName, params) {
+    this.flowRouter.go(routeName, params);
+  }
 
-  this._getQueryParam = function(queryStringKey) {
-    return tFlowRouter.getQueryParam(queryStringKey);
-  };
+  RouterLayer._getParam = function(paramName) {
+    return this.flowRouter.getParam(paramName);
+  }
 
-  this._getPath = function() {
-    FlowRouter.watchPathChange();
-    return FlowRouter.current().path;
-  };
+  RouterLayer._getQueryParam = function(queryStringKey) {
+    return this.flowRouter.getQueryParam(queryStringKey);
+  }
 
-  this._getRoutes = function() {
-    return FlowRouter._routes;
-  };
-};
+  RouterLayer._getPath = function() {
+    this.flowRouter.watchPathChange();
+    return this.flowRouter.current().path;
+  }
+}

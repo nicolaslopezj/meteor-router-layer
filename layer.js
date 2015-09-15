@@ -1,37 +1,40 @@
 /**
- * Init Router Layer
+ * Namespace for Router Layer
  */
-Router = function () {
+RouterLayer = {};
 
-  /**
-   * Check if uses iron router
-   */
-  if (_.has(Package, 'iron:router')) {
-    this._router = 'iron-router';
-  }
+/**
+ * The router package name
+ * @type {String}
+ */
+RouterLayer.router = null;
 
-  /**
-   * Check if uses flow router
-   */
-  if (_.has(Package, 'kadira:flow-router')) {
-    this._router = 'flow-router';
-    if (!_.has(Package, 'kadira:blaze-layout')) {
-      throw new Meteor.Error('router-layer', 'If you use kadira:flow-router you must add kadira:blaze-layout');
-    }
-  }
+/**
+ * Check if uses iron router
+ */
+if (_.has(Package, 'iron:router')) {
+  RouterLayer.router = 'iron-router';
+  RouterLayer.ironRouter = Package['iron:router'].Router;
+}
 
-  /*
-   * Throw a error if there is no route package
-   */
-  if (!this._router) {
-    throw new Meteor.Error('router-layer', 'You must add iron:router or kadira:flow-router');
+/**
+ * Check if uses flow router
+ */
+if (_.has(Package, 'kadira:flow-router')) {
+  RouterLayer.router = 'flow-router';
+  if (!_.has(Package, 'kadira:blaze-layout')) {
+    throw new Meteor.Error('router-layer', 'If you use kadira:flow-router you must add kadira:blaze-layout');
   }
+  RouterLayer.flowRouter = Package['kadira:flow-router'].FlowRouter;
+  RouterLayer.blazeLayout = Package['kadira:blaze-layout'].BlazeLayout;
+}
 
-  switch (this._router) {
-    case 'flow-router': FlowRouterLayer.apply(this); break;
-    case 'iron-router': IronRouterLayer.apply(this); break;
-  }
-};
+/*
+ * Throw a error if there is no route package
+ */
+if (!RouterLayer.router) {
+  throw new Meteor.Error('router-layer', 'You must add iron:router or kadira:flow-router');
+}
 
 /**
  * Creates a new route
@@ -42,7 +45,7 @@ Router = function () {
  * @param {String} options.layout             Optional. The layout for this route
  * @param {Boolean} options.reactiveTemplates Optional. Templates are reactive templates
  */
-Router.prototype.route = function(url, options) {
+RouterLayer.route = function(url, options) {
   check(url, String);
   check(options, {
     template: String,
@@ -60,7 +63,7 @@ Router.prototype.route = function(url, options) {
  * @param  {Object} params    Parameters for the route
  * @return {String}           The requested url
  */
-Router.prototype.pathFor = function(routeName, params) {
+RouterLayer.pathFor = function(routeName, params) {
   check(routeName, String);
   // check(params, Match.Optional(Object)); Gives error when passing collection documents
 
@@ -73,7 +76,7 @@ Router.prototype.pathFor = function(routeName, params) {
  * @param  {Object} params    Optional. The parameters of the route
  * @return {Boolean}          True if the route is active
  */
-Router.prototype.isActiveRoute = function(routeName, params) {
+RouterLayer.isActiveRoute = function(routeName, params) {
   check(routeName, String);
   check(params, Match.Optional(Object));
 
@@ -85,7 +88,7 @@ Router.prototype.isActiveRoute = function(routeName, params) {
  * @param  {String} routeName The name of the route
  * @return {Boolean}          True if the route is active
  */
-Router.prototype.isActiveRoutePartial = function(routeName) {
+RouterLayer.isActiveRoutePartial = function(routeName) {
   check(routeName, String);
 
   return this._isActiveRoutePartial(routeName);
@@ -96,7 +99,7 @@ Router.prototype.isActiveRoutePartial = function(routeName) {
  * @param  {String} routeName The name of the route
  * @param  {Object} params    Optional. The parameters of the route
  */
-Router.prototype.go = function(routeName, params) {
+RouterLayer.go = function(routeName, params) {
   check(routeName, String);
   // check(params, Match.Optional(Object)); Gives error when passing collection documents
 
@@ -107,7 +110,7 @@ Router.prototype.go = function(routeName, params) {
  * Returns a parameter of the url
  * @param  {String} paramName The name of the parameter
  */
-Router.prototype.getParam = function(paramName) {
+RouterLayer.getParam = function(paramName) {
   check(paramName, String);
 
   return this._getParam(paramName);
@@ -117,7 +120,7 @@ Router.prototype.getParam = function(paramName) {
  * Returns a parameter of the url query
  * @param  {String} queryStringKey The name of the parameter
  */
-Router.prototype.getQueryParam = function(queryStringKey) {
+RouterLayer.getQueryParam = function(queryStringKey) {
   check(queryStringKey, String);
 
   return this._getQueryParam(queryStringKey);
@@ -127,15 +130,6 @@ Router.prototype.getQueryParam = function(queryStringKey) {
  * Returns the path of the current route
  * @return {String} The path of the current route
  */
-Router.prototype.getPath = function() {
+RouterLayer.getPath = function() {
   return this._getPath();
-}
-
-
-/**
- * Returns all the client side routes
- * @return {[Object]} The routes
- */
-Router.prototype.getRoutes = function() {
-  return this._getRoutes();
 }
