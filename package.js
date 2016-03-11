@@ -8,7 +8,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom('1.0');
 
-  api.use(['meteor-platform', 'underscore']);
+  api.use(['meteor-base', 'tracker' , 'templating', 'check', 'underscore']);
 
   api.use(['iron:router@1.0.9', 'kadira:flow-router@2.1.1', 'kadira:blaze-layout@2.0.0', 'nicolaslopezj:reactive-templates@1.2.1'], { weak: true });
 
