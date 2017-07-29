@@ -18,22 +18,30 @@ if (_.has(Package, 'iron:router')) {
 }
 
 /**
- * Check if uses flow router
+ * Check if uses kadira:flow router
  */
-if (_.has(Package, 'kadira:flow-router') || _.has(Package, 'ostrio:flow-router-extra')) {
+if (_.has(Package, 'kadira:flow-router')) {
   RouterLayer.router = 'flow-router';
   if (!_.has(Package, 'kadira:blaze-layout')) {
-    throw new Meteor.Error('router-layer', 'If you use kadira:flow-router or ostrio:flow-router-extra you must add kadira:blaze-layout');
+    throw new Meteor.Error('router-layer', 'If you use kadira:flow-router you must add kadira:blaze-layout');
   }
-  RouterLayer.flowRouter = Package[_.has(Package, 'kadira:flow-router') ? 'kadira:flow-router' : 'ostrio:flow-router-extra'].FlowRouter;
+  RouterLayer.flowRouter = Package['kadira:flow-router'].FlowRouter;
   RouterLayer.blazeLayout = Package['kadira:blaze-layout'].BlazeLayout;
+}
+
+/**
+ * Check if uses ostrio:flow-router-extra
+ */
+if (_.has(Package, 'ostrio:flow-router-extra')) {
+  RouterLayer.router = 'flow-router';
+  RouterLayer.flowRouter = Package['ostrio:flow-router-extra'].FlowRouter;
 }
 
 /*
  * Throw a error if there is no route package
  */
 if (!RouterLayer.router) {
-  throw new Meteor.Error('router-layer', 'You must add iron:router or kadira:flow-router');
+  throw new Meteor.Error('router-layer', 'You must add iron:router, kadira:flow-router, or ostrio:flow-router-extra');
 }
 
 /**
