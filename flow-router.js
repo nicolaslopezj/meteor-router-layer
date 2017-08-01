@@ -28,7 +28,7 @@ if (RouterLayer.router == 'flow-router') {
         else {
           if (options.layout) {
             if (Package['kadira:flow-router'] && Package['kadira:blaze-layout']) {
-              self.blazeLayout.render(options.layout, options.template);
+              self.blazeLayout.render(options.layout, { content: options.template });
             }
             else {
               self.flowRouter.Renderer.render(options.layout, options.template);
