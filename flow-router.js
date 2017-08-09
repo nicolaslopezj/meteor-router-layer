@@ -8,16 +8,39 @@ if (RouterLayer.router == 'flow-router') {
         if (options.reactiveTemplates) {
           Tracker.autorun(function() {
             if (options.layout) {
-              self.blazeLayout.render(ReactiveTemplates.get(options.layout), { content: ReactiveTemplates.get(options.template) });
-            } else {
-              self.blazeLayout.render(ReactiveTemplates.get(options.template));
+              if (Package['kadira:flow-router'] && Package['kadira:blaze-layout']) {
+                self.blazeLayout.render(ReactiveTemplates.get(options.layout), { content: ReactiveTemplates.get(options.template) });
+              }
+              else {
+                self.flowRouter.Renderer.render(ReactiveTemplates.get(options.layout), ReactiveTemplates.get(options.template));
+              }
+            }
+            else {
+              if (Package['kadira:flow-router'] && Package['kadira:blaze-layout']) {
+                self.blazeLayout.render(ReactiveTemplates.get(options.template));
+              }
+              else {
+                self.flowRouter.Renderer.render(ReactiveTemplates.get(options.template));
+              }
             }
           });
-        } else {
+        }
+        else {
           if (options.layout) {
-            self.blazeLayout.render(options.layout, { content: options.template });
-          } else {
-            self.blazeLayout.render(options.template);
+            if (Package['kadira:flow-router'] && Package['kadira:blaze-layout']) {
+              self.blazeLayout.render(options.layout, { content: options.template });
+            }
+            else {
+              self.flowRouter.Renderer.render(options.layout, options.template);
+            }
+          }
+          else {
+            if (Package['kadira:flow-router'] && Package['kadira:blaze-layout']) {
+              self.blazeLayout.render(options.template);
+            }
+            else {
+              self.flowRouter.Renderer.render(options.template);
+            }
           }
         }
       }
